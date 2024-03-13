@@ -112,14 +112,14 @@ class UserTableViewCell: UITableViewCell {
         ])
     }
 
-    func configure(users: User) {
-        idLabel.text = "ID: \(users.id)"
-        nameLabel.text = "Name: \(users.name)"
-        usernameLabel.text = "Username: \(users.username)"
-        emailLabel.text = "Email: \(users.email)"
-        addressLabel.text = "Address: \(users.address.city),\n \(users.address.street), \(users.address.suite), \(users.address.zipcode).\n Geo: latitude \(users.address.geo.lat), longitude: \(users.address.geo.lng)"
-        phoneLabel.text = "Phone: \(users.phone)"
-        websiteLabel.text = "Website: \(users.website)"
-        companyLabel.text = "Company: \(users.company.name)\n (\(users.company.bs))\n \(users.company.catchPhrase)"
+    func configure(user: User) {
+        idLabel.text = "ID: \(user.id)"
+        nameLabel.text = "Name: \(user.name)"
+        usernameLabel.text = "Username: \(user.username)"
+        emailLabel.text = "Email: \(user.email)"
+        addressLabel.text = "Address: \(user.address.city),\n \(user.address.street), \(user.address.suite), \(user.address.zipcode).\n Geo: latitude \(user.address.geo.lat), longitude: \(user.address.geo.lng)"
+        phoneLabel.text = "Phone: \(user.phone)"
+        websiteLabel.text = "Website: \(user.website)"
+        companyLabel.text = "Company: \(user.company.name)\n (\(user.company.bs))\n \(user.company.catchPhrase)"
     }
 }

@@ -41,17 +41,21 @@ class ViewController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
         ])
-        
+
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: "UserTableViewCell")
         tableView.reloadData()
     }
 
     private func getUsers() {
-        AF.request(Constants.usersApiUrl).responseDecodable(of: Users.self) { response in
+        let requestQueue = DispatchQueue(label: "com.example.requestQueue", qos: .utility)
+
+        AF.request(Constants.usersApiUrl).responseDecodable(of: Users.self, queue: requestQueue) { response in
             switch response.result {
             case let .success(users):
-                for user in users {
-                    self.userArray.append(user)
+                DispatchQueue.main.async {
+                    for user in users {
+                        self.userArray.append(user)
+                    }
                 }
             case let .failure(error):
                 print("Error: \(error.localizedDescription)")
@@ -67,7 +71,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell", for: indexPath) as! UserTableViewCell
-        cell.configure(users: userArray[indexPath.row])
+        cell.configure(user: userArray[indexPath.row])
         return cell
     }
 
